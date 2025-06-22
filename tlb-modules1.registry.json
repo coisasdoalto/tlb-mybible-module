@@ -1,5 +1,5 @@
 {
-  "url": "https://raw.githubusercontent.com/coisasdoalto/tlb-mybible-module/refs/heads/main/extra-modules.registry.json",
+  "url": "https://raw.githubusercontent.com/coisasdoalto/tlb-mybible-module/refs/heads/main/tlb-modules1.registry.json",
   "file_name": "tlb-modules.registry.json",
   "description": "Módulos da Tradução Literal da Bíblia",
   "modules": [
@@ -12,7 +12,7 @@
       "update_info": "Publicação inicial"
     },
      {
-      "download_url": "https://github.com/coisasdoalto/tlb-mybible-module/raw/refs/heads/main/tlb.notes.zip",
+      "download_url": "https://github.com/coisasdoalto/tlb-mybible-module/raw/refs/heads/main/Notas.zip",
       "file_name": "Notas.zip",
       "language_code": "pt",
       "description": "Notas da Tradução Literal da Bíblia",
