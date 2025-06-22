@@ -1,0 +1,23 @@
+{
+  "url": "https://dl.dropbox.com/s/example_registry_url/extra-modules.registry.json",
+  "file_name": "extra-modules.registry.json",
+  "description": "Extra modules for MyBible",
+  "modules": [
+    {
+      "download_url": "https://dl.dropbox.com/s/example_module_url/NKJV.SQLite3.zip",
+      "file_name": "NKJV.SQLite3.zip",
+      "language_code": "en",
+      "description": "New King James Version Bible module.",
+      "update_date": "2025-06-22",
+      "update_info": "Initial release."
+    },
+    {
+      "download_url": "https://dl.dropbox.com/s/example_module_url/export.SQLite3.zip",
+      "file_name": "export.SQLite3.zip",
+      "language_code": "en",
+      "description": "Exported SQLite3 Bible module.",
+      "update_date": "2025-06-22",
+      "update_info": "Initial release."
+    }
+  ]
+}
