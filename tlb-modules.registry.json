@@ -1,21 +1,21 @@
 {
   "url": "https://raw.githubusercontent.com/coisasdoalto/tlb-mybible-module/refs/heads/main/extra-modules.registry.json",
   "file_name": "tlb-modules.registry.json",
-  "description": "Módulos da Tradução Literal da Bíblia - TLB",
+  "description": "Módulos da Tradução Literal da Bíblia",
   "modules": [
     {
       "download_url": "https://github.com/coisasdoalto/tlb-mybible-module/raw/refs/heads/main/TLB.zip",
       "file_name": "TLB.zip",
       "language_code": "pt",
-      "description": "Tradução Literal da Bíblia - TLB",
+      "description": "Tradução Literal da Bíblia",
       "update_date": "2025-06-22",
       "update_info": "Publicação inicial"
     },
      {
       "download_url": "https://github.com/coisasdoalto/tlb-mybible-module/raw/refs/heads/main/tlb.notes.zip",
-      "file_name": "tlb.notes.zip",
+      "file_name": "Notas.zip",
       "language_code": "pt",
-      "description": "Notas da Tradução Literal da Bíblia - TLB",
+      "description": "Notas da Tradução Literal da Bíblia",
       "update_date": "2025-06-22",
       "update_info": "Publicação inicial"
     }
