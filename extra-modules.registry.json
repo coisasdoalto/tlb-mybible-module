@@ -4,12 +4,12 @@
   "description": "Extra modules for MyBible",
   "modules": [
     {
-      "download_url": "https://github.com/coisasdoalto/tlb-mybible-module/raw/refs/heads/main/export.SQLite3",
-      "file_name": "export.SQLite3",
+      "download_url": "https://github.com/coisasdoalto/tlb-mybible-module/raw/refs/heads/main/TLB.zip",
+      "file_name": "TLB.zip",
       "language_code": "pt",
-      "description": "Exported SQLite3 Bible module.",
+      "description": "Traducao Literal da Biblia - TLB",
       "update_date": "2025-06-22",
-      "update_info": "Initial release."
+      "update_info": "Publicacao inicial"
     }
   ]
 }
