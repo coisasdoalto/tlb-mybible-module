@@ -10,14 +10,6 @@
       "description": "Tradução Literal da Bíblia",
       "update_date": "2025-06-22",
       "update_info": "Publicação inicial"
-    },
-     {
-      "download_url": "https://github.com/coisasdoalto/tlb-mybible-module/raw/refs/heads/main/Notas.zip",
-      "file_name": "Notas.zip",
-      "language_code": "pt",
-      "description": "Notas da Tradução Literal da Bíblia",
-      "update_date": "2025-06-22",
-      "update_info": "Publicação inicial"
     }
   ]
 }
