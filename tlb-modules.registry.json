@@ -1,10 +1,10 @@
 {
-  "url": "https://raw.githubusercontent.com/coisasdoalto/tlb-mybible-module/refs/heads/main/tlb-modules3.registry.json",
+  "url": "https://pub-6140ba369acb4126a5ac1a1a1ef2d7a6.r2.dev/tlb-modules.registry.json",
   "file_name": "tlb-modules.registry.json",
   "description": "Módulos da Tradução Literal da Bíblia",
   "modules": [
     {
-      "download_url": "https://github.com/coisasdoalto/tlb-mybible-module/raw/refs/heads/main/TLB.zip",
+      "download_url": "https://pub-6140ba369acb4126a5ac1a1a1ef2d7a6.r2.dev/TLB.zip",
       "file_name": "TLB.zip",
       "language_code": "pt",
       "description": "Tradução Literal da Bíblia",
