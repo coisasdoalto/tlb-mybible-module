@@ -1,10 +1,10 @@
 {
-  "url": "https://pub-6140ba369acb4126a5ac1a1a1ef2d7a6.r2.dev/tlb-modules.registry.json",
+  "url": "https://tlb-mybible.maisdabiblia.com.br/tlb-modules.registry.json",
   "file_name": "tlb-modules.registry.json",
   "description": "Módulos da Tradução Literal da Bíblia",
   "modules": [
     {
-      "download_url": "https://pub-6140ba369acb4126a5ac1a1a1ef2d7a6.r2.dev/TLB.zip",
+      "download_url": "https://tlb-mybible.maisdabiblia.com.br/TLB.zip",
       "file_name": "TLB.zip",
       "language_code": "pt",
       "description": "Tradução Literal da Bíblia",
