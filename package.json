@@ -1,0 +1,23 @@
+{
+  "name": "tlb-mybible-module",
+  "version": "1.0.0",
+  "description": "MyBible.Zone TLB (Tradução Literal da Bíblia) module with footnotes and 'inserted words' highlights.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coisasdoalto/tlb-mybible-module.git"
+  },
+  "scripts": {
+    "bundle": "tsx scripts/bundle.ts"
+  },
+  "dependencies": {
+    "yargs": "^18.0.0",
+    "zx": "^8.6.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.15.32",
+    "@types/yargs": "^17.0.33",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
