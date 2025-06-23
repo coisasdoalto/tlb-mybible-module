@@ -2,21 +2,11 @@ import path, { basename, dirname } from 'node:path'
 
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
-import { $, fs as fszx, useBash, question, chalk, glob } from 'zx'
-import { LogEntry, log } from 'zx/core'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 
-useBash()
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 
-$.log = (entry: LogEntry) => {
-  switch (entry.kind) {
-    case 'stdout':
-      process.stdout.write(chalk.gray(entry.data))
-      break
-    default:
-      log(entry)
-  }
-}
+import { $, fs as fszx, question, chalk, glob } from '@/lib/zx'
+import { uploadToR2 } from '@/lib/r2'
 
 type Registry = {
   url: string
@@ -41,40 +31,6 @@ const TLB_MODULES_REGISTRY_PATH = path.resolve(
 )
 const DATA_PATH = path.resolve(ROOT_PATH, 'data')
 const OUT_PATH = path.resolve(ROOT_PATH, 'out')
-
-const r2Client = new S3Client({
-  region: 'auto',
-  endpoint: process.env.R2_ENDPOINT,
-  credentials: {
-    accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || ''
-  }
-})
-
-const BUCKET_NAME = process.env.R2_BUCKET_NAME
-
-async function uploadToR2(filePath: string, key: string) {
-  console.log(chalk.blue(`Fazendo upload de ${filePath} para ${key}...`))
-
-  try {
-    const fileContent = await fszx.readFile(filePath)
-
-    const uploadParams = {
-      Bucket: BUCKET_NAME,
-      Key: key,
-      Body: fileContent,
-      ContentType: key.endsWith('.json')
-        ? 'application/json'
-        : 'application/zip'
-    }
-
-    await r2Client.send(new PutObjectCommand(uploadParams))
-    console.log(chalk.green(`Upload de ${key} concluído com sucesso!`))
-  } catch (error) {
-    console.error(chalk.red(`Erro ao fazer upload de ${key}:`), error)
-    throw error
-  }
-}
 
 async function main() {
   const argv = await yargs(hideBin(process.argv))
