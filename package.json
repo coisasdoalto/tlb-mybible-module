@@ -7,9 +7,10 @@
     "url": "git+https://github.com/coisasdoalto/tlb-mybible-module.git"
   },
   "scripts": {
-    "bundle": "tsx scripts/bundle.ts"
+    "bundle": "tsx --env-file=.env scripts/bundle.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.832.0",
     "yargs": "^18.0.0",
     "zx": "^8.6.0"
   },

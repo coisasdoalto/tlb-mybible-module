@@ -1,9 +1,10 @@
-import path, { dirname } from 'node:path'
+import path, { basename, dirname } from 'node:path'
 
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { $, fs as fszx, useBash, question, chalk, glob } from 'zx'
 import { LogEntry, log } from 'zx/core'
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 
 useBash()
 
@@ -39,6 +40,41 @@ const TLB_MODULES_REGISTRY_PATH = path.resolve(
   'tlb-modules.registry.json'
 )
 const DATA_PATH = path.resolve(ROOT_PATH, 'data')
+const OUT_PATH = path.resolve(ROOT_PATH, 'out')
+
+const r2Client = new S3Client({
+  region: 'auto',
+  endpoint: process.env.R2_ENDPOINT,
+  credentials: {
+    accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || ''
+  }
+})
+
+const BUCKET_NAME = process.env.R2_BUCKET_NAME
+
+async function uploadToR2(filePath: string, key: string) {
+  console.log(chalk.blue(`Fazendo upload de ${filePath} para ${key}...`))
+
+  try {
+    const fileContent = await fszx.readFile(filePath)
+
+    const uploadParams = {
+      Bucket: BUCKET_NAME,
+      Key: key,
+      Body: fileContent,
+      ContentType: key.endsWith('.json')
+        ? 'application/json'
+        : 'application/zip'
+    }
+
+    await r2Client.send(new PutObjectCommand(uploadParams))
+    console.log(chalk.green(`Upload de ${key} concluído com sucesso!`))
+  } catch (error) {
+    console.error(chalk.red(`Erro ao fazer upload de ${key}:`), error)
+    throw error
+  }
+}
 
 async function main() {
   const argv = await yargs(hideBin(process.argv))
@@ -83,7 +119,7 @@ async function main() {
     EOL: '\n'
   })
 
-  const bundleZipPath = path.resolve(ROOT_PATH, 'out', 'TLB.zip')
+  const bundleZipPath = path.resolve(OUT_PATH, 'TLB.zip')
   const bundleFiles = glob.sync(path.join(DATA_PATH, '*.SQLite3'))
 
   await fszx.ensureDir(dirname(bundleZipPath))
@@ -93,6 +129,19 @@ async function main() {
   await $`zip -j ${bundleZipPath} ${bundleFiles}`.verbose().nothrow()
 
   console.log(chalk.green(`Bundle criado com sucesso em: ${bundleZipPath}`))
+
+  try {
+    await uploadToR2(
+      TLB_MODULES_REGISTRY_PATH,
+      basename(TLB_MODULES_REGISTRY_PATH)
+    )
+
+    await uploadToR2(bundleZipPath, basename(bundleZipPath))
+
+    console.log(chalk.green('Upload para R2 concluído com sucesso!'))
+  } catch (error) {
+    console.error(chalk.red('Erro ao realizar upload para R2:'), error)
+  }
 }
 
 main()
