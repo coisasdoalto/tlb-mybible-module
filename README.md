@@ -23,7 +23,6 @@ This repository includes a script for creating the bundle and uploading it to Cl
 2. Run the script:
 
    ```
-   # Using .env file
    pnpm bundle -m "Update message"
    ```
 
