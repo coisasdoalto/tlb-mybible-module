@@ -19,6 +19,11 @@ This repository includes a script for creating the bundle and uploading it to Cl
    ```shell
    cp .env.example .env
    ```
+    Or [setup doppler](https://docs.doppler.com/docs/install-cli) and run: 
+
+    ```shell
+    doppler secrets download --no-file --format env > .env
+    ```
 
 2. Run the script:
 
