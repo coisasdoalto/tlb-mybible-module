@@ -3,10 +3,9 @@ import path, { basename, dirname } from 'node:path'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
-
 import { $, fs as fszx, question, chalk, glob } from '@/lib/zx'
 import { uploadToR2 } from '@/lib/r2'
+import { diffJson } from '@/lib/diff'
 
 type Registry = {
   url: string
@@ -58,7 +57,12 @@ async function main() {
   }
 
   console.log(chalk.blue('Novos metadados do bundle:'))
-  console.log(chalk.green(JSON.stringify(newRegistry, null, 2)))
+  console.log(
+    diffJson(
+      JSON.stringify(registry, null, 2),
+      JSON.stringify(newRegistry, null, 2)
+    )
+  )
 
   const confirmation = await question(
     chalk.blue('Você deseja proceder com a geração do bundle? (y/n): ')

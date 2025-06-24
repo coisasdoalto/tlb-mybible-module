@@ -17,6 +17,9 @@ importers:
       csv:
         specifier: ^6.3.11
         version: 6.3.11
+      diff:
+        specifier: ^8.0.2
+        version: 8.0.2
       kysely:
         specifier: ^0.28.2
         version: 0.28.2
@@ -721,6 +724,10 @@ packages:
 
   diff@3.5.0:
     resolution: {integrity: sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==}
+    engines: {node: '>=0.3.1'}
+
+  diff@8.0.2:
+    resolution: {integrity: sha512-sSuxWU5j5SR9QQji/o2qMvqRNYRDOcBTgsJ/DeCf4iSN4gW+gNMXM7wFIP+fdXZxoNiAnHUTGjCr+TSWXdRDKg==}
     engines: {node: '>=0.3.1'}
 
   dotenv-expand@12.0.2:
@@ -2144,6 +2151,8 @@ snapshots:
   detect-libc@2.0.4: {}
 
   diff@3.5.0: {}
+
+  diff@8.0.2: {}
 
   dotenv-expand@12.0.2:
     dependencies:
