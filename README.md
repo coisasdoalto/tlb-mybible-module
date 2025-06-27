@@ -4,9 +4,19 @@ MyBible.Zone TLB (Tradução Literal da Bíblia) module with footnotes and 'inse
 
 ## Converting USFM to MyBible module
 
-Download [BibleMultiConverter](https://github.com/schierlm/BibleMultiConverter).
+Put USFM files in the `tlb-paratext` folder.
 
-`java -jar BibleMultiConverter-SQLiteEdition.jar USFM ../tlb-paratext/ MyBibleZone ../export`
+Download [BibleMultiConverter](https://github.com/schierlm/BibleMultiConverter) to `dist` folder and run the following command to convert USFM files to MyBible module:
+
+```shell
+java -jar ./dist/<BibleMultiConverter-version>/BibleMultiConverter-SQLiteEdition.jar USFM ./tlb-paratext/ MyBibleZone ./data
+```
+
+Run post-conversion script to update database types, update database info, and process text:
+
+```shell
+pnpm post-conversion
+```
 
 ## Generating bundle and uploading
 
@@ -19,11 +29,12 @@ This repository includes a script for creating the bundle and uploading it to Cl
    ```shell
    cp .env.example .env
    ```
-    Or [setup doppler](https://docs.doppler.com/docs/install-cli) and run: 
 
-    ```shell
-    doppler secrets download --no-file --format env > .env
-    ```
+   Or [setup doppler](https://docs.doppler.com/docs/install-cli) and run:
+
+   ```shell
+   doppler secrets download --no-file --format env > .env
+   ```
 
 2. Run the script:
 
@@ -38,7 +49,16 @@ Options:
 ### Files uploaded to R2
 
 - `tlb-modules.registry.json`: Modules registry file
-- `TLB.zip`: Bundle containing TLB SQLite3 files
+- `TLB-pt.zip`: Bundle containing TLB SQLite3 files
+
+## Post-conversion script
+
+This script runs other scripts that should be executed to maintain the consistency of MyBible module.
+
+- `types` script: Runs `kysely-codegen` to update the database types.
+- `info` script: Updates `info` tables (replaced whenever BibleMultiConverter is run) for main and commentaries modules, including `chapter_string`, `introduction_string`, `language`, and `description`.
+- `process-text` script: Processes the text and applies any necessary transformations. Current transformations include:
+  - Replaces `<i>text</i>` to `<n>[text]</n>`.
 
 ## Copyright
 
