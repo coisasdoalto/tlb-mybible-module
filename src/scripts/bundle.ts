@@ -38,8 +38,18 @@ async function main() {
         alias: 'm',
         type: 'string',
         description: 'Mensagem de atualização do bundle',
-        demandOption: true
+        demandOption: true,
+        coerce: arg => arg.trim().replace(/\\+n/g, '\n')
       }
+    })
+    .check(argv => {
+      const message = argv.message.trim()
+
+      if (message.length === 0) {
+        throw new Error('A mensagem de atualização não pode estar vazia.')
+      }
+
+      return true
     })
     .parse()
 
