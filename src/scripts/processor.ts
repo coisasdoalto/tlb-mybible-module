@@ -28,18 +28,22 @@ async function main() {
     (typeof versesResult)[number]
   >[]
 
-  const updates: {
-    book: string
-    chapter: number
-    verse: number
-    before: string
-    after: string
-  }[] = []
-
   const updatesFileStream = fs.createWriteStream(
-    path.resolve(DATA_PATH, 'updates.csv'),
-    { flags: 'w' }
+    path.resolve(DATA_PATH, 'updates.csv')
   )
+
+  const stringifyStream = stringify({
+    header: true,
+    columns: {
+      book: 'Livro',
+      chapter: 'Capítulo',
+      verse: 'Verso',
+      before: 'Antes',
+      after: 'Depois'
+    }
+  })
+
+  stringifyStream.pipe(updatesFileStream)
 
   const progress = new Progress('Processando :rate/s [:bar] :percent :etas', {
     total: verses.length,
@@ -48,6 +52,8 @@ async function main() {
     complete: '=',
     incomplete: ' '
   })
+
+  let totalUpdates = 0
 
   for (const verse of verses) {
     const processedText = verse.text
@@ -59,14 +65,6 @@ async function main() {
       continue
     }
 
-    updates.push({
-      book: verse.book_short_name,
-      chapter: verse.chapter,
-      verse: verse.verse,
-      before: verse.text,
-      after: processedText
-    })
-
     await db
       .updateTable('verses')
       .set({ text: processedText })
@@ -75,26 +73,27 @@ async function main() {
       .where('verse', '=', verse.verse)
       .execute()
 
+    stringifyStream.write({
+      book: verse.book_short_name,
+      chapter: verse.chapter,
+      verse: verse.verse,
+      before: verse.text,
+      after: processedText
+    })
+
+    totalUpdates += 1
+
     progress.tick()
   }
 
-  if (updates.length === 0) {
+  stringifyStream.end()
+
+  if (totalUpdates === 0) {
     console.log(chalk.green('Nenhuma atualização feita.'))
     return
   }
 
-  console.log(chalk.blue(`Total de atualizações: ${updates.length}`))
-
-  stringify(updates, {
-    header: true,
-    columns: {
-      book: 'Livro',
-      chapter: 'Capítulo',
-      verse: 'Verso',
-      before: 'Antes',
-      after: 'Depois'
-    }
-  }).pipe(updatesFileStream)
+  console.log(chalk.blue(`Total de atualizações: ${totalUpdates}`))
 
   updatesFileStream.on('finish', () => {
     console.log(chalk.green('Arquivo de atualizações gerado: updates.csv'))
