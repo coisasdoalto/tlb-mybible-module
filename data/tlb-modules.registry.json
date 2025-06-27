@@ -4,12 +4,12 @@
   "description": "Módulos da Tradução Literal da Bíblia",
   "modules": [
     {
-      "download_url": "https://tlb-mybible.maisdabiblia.com.br/TLB.zip",
-      "file_name": "TLB.zip",
+      "download_url": "https://tlb-mybible.maisdabiblia.com.br/TLB-pt.zip",
+      "file_name": "TLB-pt.zip",
       "language_code": "pt",
       "description": "Tradução Literal da Bíblia",
       "update_date": "2025-06-27",
-      "update_info": "Correções:\n- Foi corrigido o nome de Abraão em Mateus 1:1\n- Foi incluído o versículo 28 de Filipenses 2"
+      "update_info": "Renomeando TLB para TLB-pt"
     }
   ]
 }

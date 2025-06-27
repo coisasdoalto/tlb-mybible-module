@@ -30,6 +30,7 @@ const TLB_MODULES_REGISTRY_PATH = path.resolve(
 )
 const DATA_PATH = path.resolve(ROOT_PATH, 'data')
 const OUT_PATH = path.resolve(ROOT_PATH, 'out')
+const BUNDLE_FILE_NAME = 'TLB-pt.zip'
 
 async function main() {
   const argv = await yargs(hideBin(process.argv))
@@ -89,8 +90,10 @@ async function main() {
     EOL: '\n'
   })
 
-  const bundleZipPath = path.resolve(OUT_PATH, 'TLB.zip')
-  const bundleFiles = glob.sync(path.join(DATA_PATH, '*.SQLite3'))
+  const bundleZipPath = path.resolve(OUT_PATH, BUNDLE_FILE_NAME)
+  const bundleFiles = await glob(path.resolve(DATA_PATH, '*.SQLite3'), {
+    dot: true
+  })
 
   await fszx.ensureDir(dirname(bundleZipPath))
 
